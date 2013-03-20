@@ -12,19 +12,23 @@ Author URI: http://kstep.me/
 License: proprietary
 */
 
-function array_flatten(array $array, $prefix = '')
+function array_flatten(array $array, $prefix = '', &$loop = NAN)
 {
     $result = array();
 
     foreach ($array as $key => $value) {
+        if ($value === $loop) {
+            continue; // loop detected, skip
+        }
+
         if ($prefix) {
             $key = "{$prefix}[{$key}]";
         }
 
         if (is_object($value)) {
-            $result += array_flatten(get_object_vars($value), $key);
+            $result += array_flatten(get_object_vars($value), $key, $array);
         } elseif (is_array($value)) {
-            $result += array_flatten($value, $key);
+            $result += array_flatten($value, $key, $array);
         } else {
             $result[$key] = $value;
         }
