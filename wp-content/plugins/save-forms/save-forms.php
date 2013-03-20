@@ -38,7 +38,7 @@ function format_label($field_name)
     return ucwords(str_replace('_', ' ', $field_name));
 }
 
-function save_froms_install() {
+function save_forms_install() {
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     global $wpdb;
 
