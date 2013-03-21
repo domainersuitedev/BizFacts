@@ -164,22 +164,26 @@ function save_forms_handle_saved_forms() {
 ?>
     <form method="GET">
         <input type="hidden" value="save-forms-saved-forms" name="page" />
-        <label for="save-forms-form-id">Select form:
-            <select name="form_id" id="save-forms-form-id">
-                <option value="0">-- All --</option>
-                <?php foreach ($form_types as $item): ?>
-                <option value="<?= $item->id ?>" <?= $item->id == $form_id? 'selected': '' ?>><?= $item->name ?></option>
-                <?php endforeach ?>
-            </select>
-            <input type="submit" value="Go" />
-        </label>
+        <div class="tablenav top">
+            <div class="alignleft actions">
+                <span style="float: left; line-height: 25px;">Filter by form:</span>
+                <select name="form_id" id="save-forms-form-id">
+                    <option value="0">-- All --</option>
+                    <?php foreach ($form_types as $item): ?>
+                    <option value="<?= $item->id ?>" <?= $item->id == $form_id? 'selected': '' ?>><?= $item->name ?></option>
+                    <?php endforeach ?>
+                </select>
+                <input type="submit" value="Go" />
+            </div>
+        </div>
     </form>
-    <table>
+    <p>
+    <table class="wp-list-table widefat" cellspacing="0">
         <thead>
             <tr>
                 <th>Entry Name</th>
                 <th>Timestamp</th>
-                <th>Actions</th>
+                <th style="width: 20em;">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -196,6 +200,7 @@ function save_forms_handle_saved_forms() {
             <?php endforeach ?>
         </tbody>
     </table>
+    </p>
     
 <?php if ($total_pages > 1): ?>
     <?php for ($p = 1; $p <= $total_pages; $p++): ?>
@@ -262,11 +267,12 @@ function save_forms_handle_available_forms() {
 
     $forms = $wpdb->get_results("SELECT * FROM wp_save_forms ORDER BY name");
 ?>
-    <table>
+<p>
+    <table class="wp-list-table widefat" cellspacing="0">
         <thead>
             <tr>
                 <th>Form Name</th>
-                <th>Actions</th>
+                <th style="width: 20em;">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -278,6 +284,7 @@ function save_forms_handle_available_forms() {
             <?php endforeach ?>
         </tbody>
     </table>
+</p>
     <a href="?page=save-forms-available-forms&action=add">Add new</a>
 <?php
 }
